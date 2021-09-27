@@ -59,7 +59,7 @@ namespace NeuronUI.Models
         {
             return TriggerFunction switch
             {
-                TriggerFunction.Step => input > 0 ? 1.0 : 0.0,
+                TriggerFunction.Step => input >= 0 ? 1.0 : 0.0,
                 TriggerFunction.Linear => input,
                 _ => 0.0,
             };
