@@ -14,7 +14,6 @@ namespace NeuronUI.Models.ViewModels
     public class NeuronViewModel : ObservableObject
     {
         private Neuron _neuron;
-        private string _sill = "No inicializados";
         private string _weights = "No inicializados";
 
         private string _maxSteps;
@@ -85,15 +84,6 @@ namespace NeuronUI.Models.ViewModels
                 OnPropertyChanged(nameof(Weights));
             }
         }
-        public string Sill
-        {
-            get => _sill;
-            set
-            {
-                _sill = value;
-                OnPropertyChanged(nameof(Sill));
-            }
-        }
 
         public string TrainingRate
         {
@@ -150,7 +140,7 @@ namespace NeuronUI.Models.ViewModels
 
         private void RefreshViewData()
         {
-            Sill = _neuron.Sill.ToString(CultureInfo.InvariantCulture);
+            
 
             string weightsStr = string.Empty;
             for (int i = 0; i < _neuron.Weights.Count; i++)

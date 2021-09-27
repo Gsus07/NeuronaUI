@@ -21,7 +21,6 @@ namespace NeuronUI.Models
         }
 
         public List<double> Weights { get; set; }
-        public double Sill { get; set; }
         public TriggerFunction TriggerFunction { get; set; }
 
         private double TrainingRate { get; }
@@ -34,7 +33,6 @@ namespace NeuronUI.Models
                 Weights.Add((random.NextDouble() * 2) - 1.0f);
             }
 
-            Sill = (random.NextDouble() * 2) - 1.0f;
         }
 
         public void Learn(double[] inputs, double expectedOutput)
@@ -47,7 +45,6 @@ namespace NeuronUI.Models
                 Weights[i] += TrainingRate * error * inputs[i];
             }
 
-            Sill += TrainingRate * error;
         }
 
         public double Output(double[] inputs)
@@ -59,7 +56,7 @@ namespace NeuronUI.Models
         {
             return TriggerFunction switch
             {
-                TriggerFunction.Step => input > 0 ? 1.0 : 0.0,
+                TriggerFunction.Step => input >= 0 ? 1.0 : 0.0,
                 TriggerFunction.Linear => input,
                 _ => 0.0,
             };
@@ -68,7 +65,7 @@ namespace NeuronUI.Models
         private double NextInput(double[] inputs)
         {
             double acc = inputs.Select((t, i) => t * Weights[i]).Sum();
-            return acc + Sill;
+            return acc;
         }
     }
 }
